@@ -137,7 +137,7 @@ export default {
             if (duang <= 0 && duang >= this.btnWidth) {
                 this.commitInfo[index].slide_x += distance;
             }
-            // 记录上一次开始时手指所处位置
+            // 此处手指所处位置将成为下次手指移动时的上一次位置
             this.LastX = endX;
         },
         // 滑动结束
@@ -244,18 +244,8 @@ export default {
                     color: #92a0a1;
                     font-size: 25rpx;
                 }
-
-                .infoNum {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    height: 30rpx;
-                    border-radius: 10rpx;
-                    background-color: #93d5ed;
-                }
             }
         }
-
         .now-message-info,
         .group-btn {
             float: left;
