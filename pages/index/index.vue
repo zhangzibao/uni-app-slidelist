@@ -71,7 +71,7 @@ export default {
                     img: '../../static/img/2.jpg',
 
                     name: '老虎爸爸',
-                    message:'黑发不知勤学早，白首方悔读书迟。 —— 颜真卿《劝学诗》',
+                    message: '黑发不知勤学早，白首方悔读书迟。 —— 颜真卿《劝学诗》',
                     time: '02:08',
                     top: 0,
                     slide_x: 0
@@ -93,9 +93,10 @@ export default {
                     slide_x: 0
                 },
                 {
-                   img: '../../static/img/5.jpg',
+                    img: '../../static/img/5.jpg',
                     name: '妹妹',
-                    message: '人生若只如初见，何事秋风悲画扇。 —— 纳兰性德《木兰词·拟古决绝词柬友》',
+                    message:
+                        '人生若只如初见，何事秋风悲画扇。 —— 纳兰性德《木兰词·拟古决绝词柬友》',
                     time: '02:08',
                     top: 0,
                     slide_x: 0
@@ -213,12 +214,12 @@ export default {
                 justify-content: center;
                 align-items: baseline;
                 text-align: left;
-				width: 60%;
+                width: 60%;
                 p {
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
-					max-width: 100%;
+                    max-width: 100%;
                 }
                 .name {
                     font-size: 35rpx;
