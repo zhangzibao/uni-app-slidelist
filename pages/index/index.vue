@@ -180,8 +180,10 @@ export default {
     overflow: hidden;
 
     .slide_list {
+        // #ifndef H5
         transition: all 100ms;
         transition-timing-function: ease-out;
+        // #endif
         min-width: 200%;
         height: 150rpx;
         border-bottom: 1px solid #e0eef1;
