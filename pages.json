@@ -3,7 +3,10 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "张自爆-超级列表左滑"
+				"navigationBarTitleText": "张自爆-超级列表左滑",
+				"app-plus":{
+					"bounce":"none"
+				}
 			}
 		}
 	],

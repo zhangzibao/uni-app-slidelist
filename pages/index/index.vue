@@ -54,9 +54,9 @@ export default {
     },
     data() {
         return {
+            btnWidth: 0,
             startX: 0,
             LastX: 0,
-            btnWidth: 0,
             commitInfo: [
                 {
                     img: '../../static/img/1.jpg',
@@ -69,7 +69,6 @@ export default {
 
                 {
                     img: '../../static/img/2.jpg',
-
                     name: '老虎爸爸',
                     message: '黑发不知勤学早，白首方悔读书迟。 —— 颜真卿《劝学诗》',
                     time: '02:08',
@@ -107,7 +106,7 @@ export default {
     methods: {
         // 滑动开始
         touchStart(e, index) {
-            // 获取当前按钮组宽度
+            // 按钮宽度
             uni.createSelectorQuery()
                 .selectAll('.group-btn')
                 .boundingClientRect()
@@ -117,7 +116,7 @@ export default {
                     }
                 });
             // 记录上一次开始时手指所处位置
-            this.startX = e.mp.changedTouches[0].clientX;
+            this.startX = e.clientX;
             // 记录上一次手指位置
             this.LastX = this.startX;
             //初始化非当前滑动消息列的位置
@@ -129,7 +128,7 @@ export default {
         },
         // 滑动中
         touchMove(e, index) {
-            const endX = e.mp.changedTouches[0].clientX;
+            const endX = e.clientX;
             const distance = endX - this.LastX;
             // 预测滑块所处位置
             const duang = this.commitInfo[index].slide_x + distance;
@@ -142,11 +141,11 @@ export default {
         },
         // 滑动结束
         touchEnd(e, index) {
-            const endX = e.mp.changedTouches[0].clientX;
+            const end_distance = this.startX - this.LastX;
             // 判断手指最终位置与手指开始位置的位置差距
-            if (this.startX - endX > 10) {
+            if (end_distance > 10) {
                 this.commitInfo[index].slide_x = this.btnWidth;
-            } else if (this.startX - endX < -10) {
+            } else if (end_distance < -10) {
                 this.commitInfo[index].slide_x = 0;
             }
         },
