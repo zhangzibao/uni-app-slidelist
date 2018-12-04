@@ -134,7 +134,7 @@ export default {
             const duang = this.NowMessageList[index].slide_x + distance;
             // 如果在可行区域内
             if (duang <= 0 && duang >= this.btnWidth) {
-                this.NowMessageList[index].slide_x += distance;
+                this.NowMessageList[index].slide_x = duang;
             }
             // 此处手指所处位置将成为下次手指移动时的上一次位置
             this.LastX = endX;
