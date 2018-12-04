@@ -34,7 +34,7 @@
                     <div class="top" @click="top(index)" v-else>
                         置顶
                     </div>
-                    <div class="delect" @click="delect(index)">
+                    <div class="removeM" @click="removeM(index)">
                         删除
                     </div>
                 </div>
@@ -116,7 +116,7 @@ export default {
                     }
                 });
             // 记录上一次开始时手指所处位置
-            this.startX = e.clientX;
+            this.startX = e.pageX;
             // 记录上一次手指位置
             this.LastX = this.startX;
             //初始化非当前滑动消息列的位置
@@ -128,7 +128,7 @@ export default {
         },
         // 滑动中
         touchMove(e, index) {
-            const endX = e.clientX;
+            const endX = e.pageX;
             const distance = endX - this.LastX;
             // 预测滑块所处位置
             const duang = this.commitInfo[index].slide_x + distance;
@@ -162,7 +162,7 @@ export default {
             this.recover(index);
         },
         // 删除
-        delect(index) {
+        removeM(index) {
             this.commitInfo.splice(index, 1);
         }
     }
@@ -270,7 +270,7 @@ export default {
                 background-color: #c4c7cd;
             }
 
-            .delect {
+            .removeM {
                 background-color: #ff3b32;
             }
         }
