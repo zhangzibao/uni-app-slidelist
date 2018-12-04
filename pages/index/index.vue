@@ -10,7 +10,7 @@
                 <div class="now-message-info"
                      :style="{width:Screen_width+'px'}"
                 >
-                    <div class="imgInfo" @click="recover(index)">
+                    <div class="imgInfo" @tap="recover(index)">
                         <img :src="item.img">
                     </div>
                     <div class="centerInfo">
@@ -21,20 +21,20 @@
                             {{item.message}}
                         </p>
                     </div>
-                    <div class="timeInfo" @click="recover(index)">
+                    <div class="timeInfo" @tap="recover(index)">
                         <div class="time">
                             <text>{{item.time}}</text>
                         </div>
                     </div>
                 </div>
                 <div class="group-btn">
-                    <div class="top" @click="top(index)" v-if="item.top">
+                    <div class="top" @tap="top(index)" v-if="item.top">
                         取消置顶
                     </div>
-                    <div class="top" @click="top(index)" v-else>
+                    <div class="top" @tap="top(index)" v-else>
                         置顶
                     </div>
-                    <div class="removeM" @click="removeM(index)">
+                    <div class="removeM" @tap="removeM(index)">
                         删除
                     </div>
                 </div>
