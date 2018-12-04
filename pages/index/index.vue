@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <div class="container_of_slide" v-for="(item,index) in commitInfo" :key="index">
+        <div class="container_of_slide" v-for="(item,index) in NowMessageList" :key="index">
             <div class="slide_list"
                  @touchstart="touchStart($event,index)"
                  @touchend="touchEnd($event,index)"
@@ -57,7 +57,7 @@ export default {
             btnWidth: 0,
             startX: 0,
             LastX: 0,
-            commitInfo: [
+            NowMessageList: [
                 {
                     img: '../../static/img/1.jpg',
                     name: '狐狸叔叔',
@@ -120,7 +120,7 @@ export default {
             // 记录上一次手指位置
             this.LastX = this.startX;
             //初始化非当前滑动消息列的位置
-            this.commitInfo.forEach((item, eq) => {
+            this.NowMessageList.forEach((item, eq) => {
                 if (eq !== index) {
                     item.slide_x = 0;
                 }
@@ -131,10 +131,10 @@ export default {
             const endX = e.touches[0].pageX;
             const distance = endX - this.LastX;
             // 预测滑块所处位置
-            const duang = this.commitInfo[index].slide_x + distance;
+            const duang = this.NowMessageList[index].slide_x + distance;
             // 如果在可行区域内
             if (duang <= 0 && duang >= this.btnWidth) {
-                this.commitInfo[index].slide_x += distance;
+                this.NowMessageList[index].slide_x += distance;
             }
             // 此处手指所处位置将成为下次手指移动时的上一次位置
             this.LastX = endX;
@@ -144,26 +144,26 @@ export default {
             const end_distance = this.startX - this.LastX;
             // 判断手指最终位置与手指开始位置的位置差距
             if (end_distance > 10) {
-                this.commitInfo[index].slide_x = this.btnWidth;
+                this.NowMessageList[index].slide_x = this.btnWidth;
             } else if (end_distance < -10) {
-                this.commitInfo[index].slide_x = 0;
+                this.NowMessageList[index].slide_x = 0;
             }
         },
         // 点击回复原状
         recover(index) {
-            this.commitInfo[index].slide_x = 0;
-            this.commitInfo.sort((a, b) => {
+            this.NowMessageList[index].slide_x = 0;
+            this.NowMessageList.sort((a, b) => {
                 return b.top - a.top;
             });
         },
         // 置顶
         top(index) {
-            this.commitInfo[index].top = this.commitInfo[index].top ? 0 : 1;
+            this.NowMessageList[index].top = this.NowMessageList[index].top ? 0 : 1;
             this.recover(index);
         },
         // 删除
         removeM(index) {
-            this.commitInfo.splice(index, 1);
+            this.NowMessageList.splice(index, 1);
         }
     }
 };
