@@ -11,7 +11,7 @@
                      :style="{width:Screen_width+'px'}"
                 >
                     <div class="imgInfo" @tap="recover(index)">
-                        <img :src="item.img">
+                        <image :src="item.img"></image>
                     </div>
                     <div class="centerInfo">
                         <p class="name">
@@ -198,7 +198,7 @@ export default {
                 background-color: #38a7fa;
                 margin-left: 4%;
 
-                img {
+                image {
                     width: 100rpx;
                     height: 100rpx;
                     border-radius: 50%;
