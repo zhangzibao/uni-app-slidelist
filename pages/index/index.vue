@@ -116,7 +116,7 @@ export default {
                     }
                 });
             // 记录上一次开始时手指所处位置
-            this.startX = e.pageX;
+            this.startX = e.touches[0].pageX;
             // 记录上一次手指位置
             this.LastX = this.startX;
             //初始化非当前滑动消息列的位置
@@ -128,7 +128,7 @@ export default {
         },
         // 滑动中
         touchMove(e, index) {
-            const endX = e.pageX;
+            const endX = e.touches[0].pageX;
             const distance = endX - this.LastX;
             // 预测滑块所处位置
             const duang = this.commitInfo[index].slide_x + distance;
@@ -213,7 +213,8 @@ export default {
                 justify-content: center;
                 align-items: baseline;
                 text-align: left;
-                width: 60%;
+                width: 55%;
+                padding-left: 5%;
                 p {
                     overflow: hidden;
                     white-space: nowrap;
