@@ -55,7 +55,7 @@ export default {
     },
     data() {
         return {
-			start_slide_x: 0,
+            start_slide_x: 0,
             btnWidth: 0,
             startX: 0,
             LastX: 0,
@@ -110,8 +110,8 @@ export default {
         touchStart(e, index) {
             //记录手指放上去的时间
             this.startTime = e.timeStamp;
-			//记录滑块的初始位置
-			this.start_slide_x = this.NowMessageList[index].slide_x;
+            //记录滑块的初始位置
+            this.start_slide_x = this.NowMessageList[index].slide_x;
             // 按钮宽度
             uni.createSelectorQuery()
                 .selectAll('.group-btn')
