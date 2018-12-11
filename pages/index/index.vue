@@ -5,6 +5,7 @@
                  @touchstart="touchStart($event,index)"
                  @touchend="touchEnd($event,index)"
                  @touchmove="touchMove($event,index)"
+				 @tap="recover(index)"
                  :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}"
             >
                 <div class="now-message-info"
@@ -54,9 +55,11 @@ export default {
     },
     data() {
         return {
+			start_slide_x: 0,
             btnWidth: 0,
             startX: 0,
             LastX: 0,
+            startTime: 0,
             NowMessageList: [
                 {
                     img: '../../static/img/1.jpg',
@@ -66,7 +69,6 @@ export default {
                     top: 0,
                     slide_x: 0
                 },
-
                 {
                     img: '../../static/img/2.jpg',
                     name: '老虎爸爸',
@@ -106,6 +108,10 @@ export default {
     methods: {
         // 滑动开始
         touchStart(e, index) {
+            //记录手指放上去的时间
+            this.startTime = e.timeStamp;
+			//记录滑块的初始位置
+			this.start_slide_x = this.NowMessageList[index].slide_x;
             // 按钮宽度
             uni.createSelectorQuery()
                 .selectAll('.group-btn')
@@ -118,7 +124,7 @@ export default {
             // 记录上一次开始时手指所处位置
             this.startX = e.touches[0].pageX;
             // 记录上一次手指位置
-            this.LastX = this.startX;
+            this.lastX = this.startX;
             //初始化非当前滑动消息列的位置
             this.NowMessageList.forEach((item, eq) => {
                 if (eq !== index) {
@@ -129,7 +135,7 @@ export default {
         // 滑动中
         touchMove(e, index) {
             const endX = e.touches[0].pageX;
-            const distance = endX - this.LastX;
+            const distance = endX - this.lastX;
             // 预测滑块所处位置
             const duang = this.NowMessageList[index].slide_x + distance;
             // 如果在可行区域内
@@ -137,28 +143,35 @@ export default {
                 this.NowMessageList[index].slide_x = duang;
             }
             // 此处手指所处位置将成为下次手指移动时的上一次位置
-            this.LastX = endX;
+            this.lastX = endX;
         },
         // 滑动结束
         touchEnd(e, index) {
-            const end_distance = this.startX - this.LastX;
+            let distance = 10;
+            const endTime = e.timeStamp;
+            const x_end_distance = this.startX - this.lastX;
+            if (Math.abs(endTime - this.startTime) > 200) {
+                distance = this.btnWidth / -2;
+            }
             // 判断手指最终位置与手指开始位置的位置差距
-            if (end_distance > 10) {
+            if (x_end_distance > distance) {
                 this.NowMessageList[index].slide_x = this.btnWidth;
-            } else if (end_distance < -10) {
+            } else if (x_end_distance < distance * -1) {
                 this.NowMessageList[index].slide_x = 0;
+            } else {
+                this.NowMessageList[index].slide_x = this.start_slide_x;
             }
         },
         // 点击回复原状
         recover(index) {
             this.NowMessageList[index].slide_x = 0;
-            this.NowMessageList.sort((a, b) => {
-                return b.top - a.top;
-            });
         },
         // 置顶
         top(index) {
             this.NowMessageList[index].top = this.NowMessageList[index].top ? 0 : 1;
+            this.NowMessageList.sort((a, b) => {
+                return b.top - a.top;
+            });
             this.recover(index);
         },
         // 删除
@@ -174,32 +187,25 @@ export default {
     margin: 0;
     padding: 0;
 }
-
 .container_of_slide {
     width: 100%;
     overflow: hidden;
-
     .slide_list {
-        // #ifndef H5
         transition: all 100ms;
         transition-timing-function: ease-out;
-        // #endif
         min-width: 200%;
         height: 150rpx;
         border-bottom: 1px solid #e0eef1;
-
         .now-message-info {
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             .imgInfo {
                 width: 100rpx;
                 height: 100rpx;
                 border-radius: 50%;
                 background-color: #38a7fa;
                 margin-left: 4%;
-
                 image {
                     width: 100rpx;
                     height: 100rpx;
@@ -207,7 +213,6 @@ export default {
                     overflow: hidden;
                 }
             }
-
             .centerInfo {
                 height: 150rpx;
                 display: flex;
@@ -226,13 +231,11 @@ export default {
                 .name {
                     font-size: 35rpx;
                 }
-
                 .message {
                     font-size: 24rpx;
                     color: #7c8489;
                 }
             }
-
             .timeInfo {
                 height: 150rpx;
                 display: flex;
@@ -241,7 +244,6 @@ export default {
                 justify-content: center;
                 align-items: center;
                 margin-right: 2%;
-
                 .time {
                     color: #92a0a1;
                     font-size: 25rpx;
@@ -252,14 +254,12 @@ export default {
         .group-btn {
             float: left;
         }
-
         .group-btn {
             display: flex;
             flex-direction: row;
             height: 100%;
             min-width: 100rpx;
             align-items: center;
-
             div {
                 height: 100%;
                 color: #fff;
@@ -268,11 +268,9 @@ export default {
                 font-size: 34rpx;
                 line-height: 150rpx;
             }
-
             .top {
                 background-color: #c4c7cd;
             }
-
             .removeM {
                 background-color: #ff3b32;
             }
