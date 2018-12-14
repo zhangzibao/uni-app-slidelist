@@ -169,10 +169,10 @@ export default {
         // 置顶
         top(index) {
             this.NowMessageList[index].top = this.NowMessageList[index].top ? 0 : 1;
+			this.recover(index);
             this.NowMessageList.sort((a, b) => {
                 return b.top - a.top;
             });
-            this.recover(index);
         },
         // 删除
         removeM(index) {
